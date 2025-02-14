@@ -4,65 +4,107 @@ const chalk = require('chalk')
 const figlet = require('figlet')
 
 function generateTitle(title) {
-  figlet(title, (err, data) => {
-    if (err) {
-      console.log('Something went wrong...')
-      console.dir(err)
-      return
-    }
-    console.log(data)
-  })
+  console.log(figlet.textSync(title))
 }
 
 function init() {
   clear()
   generateTitle('--Jogo-da-Forca--')
+
+  console.log('Escolha uma categoria:\n')
+
+  filterCategories.forEach((categorie, index) => {
+    console.log(chalk.green(`${categorie}: ${choices[index]}\n`))
+  })
+
+  do {
+    choicePlayer = parseInt(input(`Escolha um número entre ${choices[0]} e ${choices[choices.length - 1]}: `))
+  } while (!choices.includes(choicePlayer))
+
+  clear()
+  generateTitle('Boa sorte...')
   setTimeout(() => {
-    console.log('Escolha uma categoria:')
-
-    filterCategories.forEach((categorie, index) => {
-      console.log(chalk.green(`${categorie}: ${choices[index]}`))
-    })
-
-    do {
-      choicePlayer = parseInt(input(`Escolha um número entre ${choices[0]} e ${choices[choices.length - 1]}: `))
-    } while (!choices.includes(choicePlayer))
-
     clear()
-    generateTitle('Boa sorte...')
-    setTimeout(() => {
-      clear()
-      game()
-    }, 2000)
-  }, 100)
+    game()
+  }, 2000)
+
 }
 
 function game() {
-  const listCategories = categories[filterCategories[choicePlayer - 1]]
+  const theme = filterCategories[choicePlayer - 1]
+  const listCategories = categories[theme]
   const randomWord = listCategories[Math.floor(Math.random() * listCategories.length)].toUpperCase().split('')
-  const fakeWord = randomWord.map(letter => letter.normalize('NFC').replace(/[\u0300-\u036f]/g, ''))
-  const misteriousWord = Array.from({ length: randomWord.length }, () => '_')
+  const fakeWord = randomWord.map(letter => letter.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+  const misteriousWord = Array.from({ length: randomWord.length }, (_, i) => randomWord[i] == ' ' ? ' ' : '_')
   let choiceLetter
   let chosenLetters = []
-  let error = true
-  
-  while (misteriousWord.join('') != randomWord.join('')) {
-    console.log(randomWord)
-    generateTitle(misteriousWord.join(''))
+  let error = { situation: true, count: 0 }
+  let win = false
+  let defeat = false
+  let notice
+  let design = `__\n     l`
+
+  while (true) {
+    console.log(chalk.blue(`Tema: ${theme}`))
+    generateTitle(`${design} ${misteriousWord.join('').padStart(80)}`)
+
+    if (win || defeat) {
+      const step = input(`Você ${win ? 'ganhou' : 'perdeu'}! Deseja continuar? (S/N): `).toUpperCase() == 'S'
+      if (step) init()
+      break
+    }
+
+    if (chosenLetters.length > 0) {
+      console.log(`\n${notice}\n`)
+      console.log(chalk.blue(`Letras que já foram: ${chosenLetters}\n`))
+    }
 
     do {
       choiceLetter = input('Escolha uma letra válida: ').toUpperCase()
     } while (choiceLetter.length != 1 || /\d/.test(choiceLetter) || chosenLetters.includes(choiceLetter))
 
     chosenLetters.push(choiceLetter)
+    error.situation = true
+
     fakeWord.forEach((letter, index) => {
       if (choiceLetter == letter) {
-        error = false
+        error.situation = false
         misteriousWord[index] = randomWord[index]
       }
     })
 
-    // clear()
+    if (error.situation) {
+      error.count++
+      notice = chalk.red(`Você errou. Mais ${6 - error.count} erros e será enforcado!`)
+
+      switch (error.count) {
+        case 1: 
+          design = `\n  __\n       l\n     o\n`
+          break
+        case 2: 
+          design = `\n  __\n       l\n     o\n       |\n`
+          break
+        case 3: 
+          design = `\n  __\n       l\n     o\n  /|\n`
+          break
+        case 4: 
+          design = `\n  __\n       l\n     o\n  /|\\\n`
+          break
+        case 5: 
+          design = `\n  __\n       l\n     o\n  /|\\\n  /\n`
+          break
+        case 6: 
+          design = `\n  __\n       l\n     o\n  /|\\\n  / \\\n`
+          defeat = true
+          break
+      }
+    } else if (misteriousWord.join() == randomWord.join()) {
+      win = true
+    } else {
+      notice = chalk.green('Você acertou!')
+    }
+
+    clear()
   }
 }
 
@@ -86,13 +128,5 @@ let choices = Array.from({ length: filterCategories.length }, (_, index) => inde
 let choicePlayer
 
 const clear = console.clear
-
-/*generateTitle(`
-__
-     l
-   o
-/|\\
-/ \\
-`) ordem: cabeça, tronco, b. direto, b, esquerdo, p. direita, p. esquerda */
 
 init()
