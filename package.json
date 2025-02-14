@@ -6,7 +6,7 @@
   "scripts": {
     "1": "cls && node exercicios/exe001/passwordGenerator.js",
     "2": "cls && node exercicios/exe001/numberGuessing.js",
-    "3": "cls && node exercicios/exe001/hangman.js",
+    "3": "node exercicios/exe001/hangman.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
