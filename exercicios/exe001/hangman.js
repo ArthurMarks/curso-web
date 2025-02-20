@@ -2,11 +2,36 @@
 const input = require('prompt-sync')()
 const chalk = require('chalk')
 const figlet = require('figlet')
+const alphabet = require('alphabet').upper
 
+// Temas do jogo (pode ser alterado, excluído e adicionado)
+const categories = {
+  animal: [
+    'Cachorro', 'Gato', 'Elefante', 'Leão', 'Tigre', 'Urso', 'Macaco', 'Girafa', 'Zebra', 'Cavalo'
+  ],
+  country: [
+    'Brasil', 'Estados Unidos', 'China', 'Japão', 'Alemanha', 'França', 'Itália', 'Espanha', 'Reino Unido', 'Canadá'
+  ],
+  fruit: [
+    'Maçã', 'Banana', 'Laranja', 'Manga', 'Pêra', 'Uva', 'Morango', 'Kiwi', 'Abacate', 'Pêssego'
+  ],
+  profession: [
+    'Médico', 'Engenheiro', 'Advogado', 'Professor', 'Enfermeiro', 'Policial', 'Bombeiro', 'Arquiteto', 'Contador', 'Desenvolvedor'
+  ]
+}
+
+// Utilitários e variáveis globais
+const filterCategories = Object.keys(categories)
+let choices = Array.from({ length: filterCategories.length }, (_, index) => index + 1)
+let choicePlayer
+const clear = console.clear
+
+// Função que lida com geração de texto ASCII
 function generateTitle(title) {
   console.log(figlet.textSync(title))
 }
 
+// Função de início (lista de categorias, entrada de dados e chamada da função principal)
 function init() {
   clear()
   generateTitle('--Jogo-da-Forca--')
@@ -14,7 +39,7 @@ function init() {
   console.log('Escolha uma categoria:\n')
 
   filterCategories.forEach((categorie, index) => {
-    console.log(chalk.green(`${categorie}: ${choices[index]}\n`))
+    console.log(chalk.blue(`${categorie}: ${choices[index]}\n`))
   })
 
   do {
@@ -30,6 +55,7 @@ function init() {
 
 }
 
+// Função que lida com o jogo, seus eventos e resultados
 function game() {
   const theme = filterCategories[choicePlayer - 1]
   const listCategories = categories[theme]
@@ -38,19 +64,19 @@ function game() {
   const misteriousWord = Array.from({ length: randomWord.length }, (_, i) => randomWord[i] == ' ' ? ' ' : '_')
   let choiceLetter
   let chosenLetters = []
-  let error = { situation: true, count: 0 }
+  let error = { situation: false, count: 0 }
   let win = false
   let defeat = false
   let notice
-  let design = `__\n     l`
+  let design = `__\n     l\n`
 
   while (true) {
     console.log(chalk.blue(`Tema: ${theme}`))
     generateTitle(`${design} ${misteriousWord.join('').padStart(80)}`)
 
     if (win || defeat) {
-      const step = input(`Você ${win ? 'ganhou' : 'perdeu'}! Deseja continuar? (S/N): `).toUpperCase() == 'S'
-      if (step) init()
+      const step = input(`Você ${win ? chalk.green('ganhou') : chalk.red('perdeu')}! Deseja continuar? (S/N): `)
+      if (step.toUpperCase() == 'S') init()
       break
     }
 
@@ -61,7 +87,7 @@ function game() {
 
     do {
       choiceLetter = input('Escolha uma letra válida: ').toUpperCase()
-    } while (choiceLetter.length != 1 || /\d/.test(choiceLetter) || chosenLetters.includes(choiceLetter))
+    } while (!alphabet.includes(choiceLetter) || chosenLetters.includes(choiceLetter))
 
     chosenLetters.push(choiceLetter)
     error.situation = true
@@ -96,6 +122,7 @@ function game() {
         case 6: 
           design = `\n  __\n       l\n     o\n  /|\\\n  / \\\n`
           defeat = true
+          randomWord.forEach((letter, index) => misteriousWord[index] = letter)
           break
       }
     } else if (misteriousWord.join() == randomWord.join()) {
@@ -107,26 +134,5 @@ function game() {
     clear()
   }
 }
-
-const categories = {
-  animal: [
-    'Cachorro', 'Gato', 'Elefante', 'Leão', 'Tigre', 'Urso', 'Macaco', 'Girafa', 'Zebra', 'Cavalo'
-  ],
-  country: [
-    'Brasil', 'Estados Unidos', 'China', 'Japão', 'Alemanha', 'França', 'Itália', 'Espanha', 'Reino Unido', 'Canadá'
-  ],
-  fruit: [
-    'Maçã', 'Banana', 'Laranja', 'Manga', 'Pêra', 'Uva', 'Morango', 'Kiwi', 'Abacate', 'Pêssego'
-  ],
-  profession: [
-    'Médico', 'Engenheiro', 'Advogado', 'Professor', 'Enfermeiro', 'Policial', 'Bombeiro', 'Arquiteto', 'Contador', 'Desenvolvedor'
-  ]
-}
-
-const filterCategories = Object.keys(categories)
-let choices = Array.from({ length: filterCategories.length }, (_, index) => index + 1)
-let choicePlayer
-
-const clear = console.clear
 
 init()
