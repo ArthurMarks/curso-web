@@ -4,9 +4,9 @@
   "description": "Repositório de exercícios e projetos",
   "main": "index.js",
   "scripts": {
-    "1": "cls && node exercicios/exe001/passwordGenerator.js",
-    "2": "cls && node exercicios/exe001/numberGuessing.js",
-    "3": "node exercicios/exe001/hangman.js",
+    "pe11": "cls && node .pweb/exe/exe001/passwordGenerator.js",
+    "pe12": "cls && node .pweb/exe/exe001/numberGuessing.js",
+    "pe13": "node .pweb/exe/exe001/hangman.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
