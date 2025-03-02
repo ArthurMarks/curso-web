@@ -4,18 +4,14 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "1": "node src/hangman.js",
-    "2": "cls && node src/numberGuessing.js",
-    "3": "cls && node src/passwordGenerator.js"
+    "1": "node src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alphabet": "^1.0.0",
-    "chalk": "^4.1.2",
-    "figlet": "^1.8.0",
-    "generate-password": "^1.7.1",
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.3",
     "prompt-sync": "^4.2.0"
   }
 }
