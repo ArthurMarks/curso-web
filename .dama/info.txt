@@ -1,0 +1,5 @@
+1. Criar um projeto React Native em branco:
+npx create-expo-app --template blank
+
+2. Instalar dependências necessárias:
+npx expo install react-dom react-native-web @expo/metro-runtime
