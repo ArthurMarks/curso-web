@@ -3,3 +3,12 @@ npx create-expo-app --template blank
 
 2. Instalar dependências necessárias:
 npx expo install react-dom react-native-web @expo/metro-runtime
+
+3. Baixar lib de navegação
+npm install @react-navigation/native
+
+4. Dependências para React Native
+npm install react-native-screens react-native-safe-area-context
+
+5. Para navegação em pilha (stack)
+npm install @react-navigation/native-stack
