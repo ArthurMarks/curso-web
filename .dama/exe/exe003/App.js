@@ -9,16 +9,20 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <Calc2 />
+  )
+}
+
+const styles = StyleSheet.create({
+
+})
+
+/*
+<NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home}></Stack.Screen>
         <Stack.Screen name="Calculadora 1" component={Calc1}></Stack.Screen>
         <Stack.Screen name="Calculadora 2" component={Calc2}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
-
-const styles = StyleSheet.create({
-  
-})
+*/
