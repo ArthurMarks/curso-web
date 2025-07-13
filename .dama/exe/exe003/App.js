@@ -1,28 +1,35 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StyleSheet, Text, View } from 'react-native'
-import Home from './src/screens/Home'
-import Calc1 from './src/screens/Calc1'
-import Calc2 from './src/screens/Calc2'
+import Calculator from './src/screens/Calculator'
+import History from './src/screens/History'
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <Calc2 />
-  )
-}
-
-const styles = StyleSheet.create({
-
-})
-
-/*
-<NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Calculadora 1" component={Calc1}></Stack.Screen>
-        <Stack.Screen name="Calculadora 2" component={Calc2}></Stack.Screen>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Calculator">
+        <Stack.Screen 
+          name="Calculator" 
+          component={Calculator} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="History" 
+          component={History} 
+          options={{ 
+            headerStyle: {
+              backgroundColor: '#202020',
+              borderBottomWidth: 0
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              color: '#fff',
+              fontWeight: 'normal'
+            }
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-*/
+  )
+}
