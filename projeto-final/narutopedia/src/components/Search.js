@@ -1,26 +1,70 @@
-import { Text, View, TextInput, Pressable, StyleSheet } from "react-native"
+import { Text, View, TextInput, Image, Pressable, StyleSheet } from "react-native"
 
 const Search = () => {
     return (
         <View style={styles.container}>
-            <TextInput />
-            <Pressable>
-                <Text>Texto</Text>
-            </Pressable>
+            <View style={styles.start}>
+                <Image 
+                    source={require('../../assets/konoha.png')}
+                    style={styles.imageStart}
+                    resizeMode="cover"
+                />
+                <Text style={styles.textStart}>Narutopedia</Text>
+            </View>
+            <View style={styles.search}>
+                <TextInput
+                    placeholder='Personagens, habilidades...'
+                    style={styles.input}
+                />
+                <Pressable style={styles.filter}>
+                    <Text>Filtro</Text>
+                </Pressable>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: 80,
-        width: '100%',
-        backgroundColor: '#1976D2',
+        height: '150',
+        backgroundColor: '#A6886D',
+        paddingHorizontal: 10,
+        paddingTop: 30,
+        marginBottom: 15,
+    },
+    start: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingTop: 20, // para simular espaço do status bar
-    }
+        gap: 10,
+    },
+    textStart: {
+        fontSize: 30,
+    },
+    imageStart: {
+        width: 40,
+        height: 40,
+    },
+    search: {
+        height: 80,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+    input: {
+        backgroundColor: '#D9B79A',
+        height: 40,
+        borderRadius: 5,
+        paddingHorizontal: 15,
+        flex: 3,
+    },
+    filter: {
+        backgroundColor: '#F2D5BB',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 30,
+        borderRadius: 5,
+        flex: 2,
+    },
 })
 
 export default Search

@@ -1,4 +1,5 @@
 import { View, Text, Image } from "react-native"
+import styles from "../tools/styles"
 
 const Home = () => {
     return (
@@ -8,12 +9,10 @@ const Home = () => {
                     <Text>Welcome</Text>
                     <Image />
                 </View>
-
                 <View>
                     <Text>Synopsis</Text>
                     <Image />
                 </View>
-
                 <View>
                     <Text>Obrigado por visitar!</Text>
                     <Text>Feito por: Bacelli, Lemes e Davi</Text>
