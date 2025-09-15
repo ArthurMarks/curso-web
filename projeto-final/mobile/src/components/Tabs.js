@@ -15,31 +15,26 @@ const Tabs = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarIcon: ({ color }) => {
-                let iconName
-                const tab = route.name
-
-                if (tab == 'Home') {
-                    iconName = 'home'
-                } else if (tab == 'Characters') {
-                    iconName = 'groups'
-                } else if (tab == 'Villages') {
-                    iconName = 'temple-hindu'
-                } else if (tab == 'Clans') {
-                    iconName = 'shield'
-                } else {
-                    iconName = 'electric-bolt'
+                const iconMap = {
+                    home: 'home',
+                    characters: 'groups',
+                    villages: 'temple-hindu',
+                    clans: 'shield',
+                    skills: 'electric-bolt'
                 }
+
+                const iconName = iconMap[route.name]
 
                 return <MaterialIcons name={iconName} color={color} size={25} />
             },
             tabBarActiveTintColor: '#A6886D',
             tabBarInactiveTintColor: '#bbb'
         })}>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Characters" component={Characters} />
-            <Tab.Screen name="Villages" component={Villages} />
-            <Tab.Screen name="Clans" component={Clans} />
-            <Tab.Screen name="Skills" component={Skills} />
+            <Tab.Screen name="home" component={Home} />
+            <Tab.Screen name="characters" component={Characters} />
+            <Tab.Screen name="villages" component={Villages} />
+            <Tab.Screen name="clans" component={Clans} />
+            <Tab.Screen name="skills" component={Skills} />
         </Tab.Navigator>
     )
 }
