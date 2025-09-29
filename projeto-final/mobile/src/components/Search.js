@@ -7,7 +7,6 @@ const Search = () => {
                 <Image 
                     source={require('../../assets/konoha.png')}
                     style={styles.imageStart}
-                    resizeMode="cover"
                 />
                 <Text style={styles.textStart}>Narutopedia</Text>
             </View>
@@ -17,7 +16,10 @@ const Search = () => {
                     style={styles.input}
                 />
                 <Pressable style={styles.filter}>
-                    <Text>Filtro</Text>
+                    <Image
+                        source={require('../../assets/filter.png')}
+                        style={styles.imageFilter}
+                    />
                 </Pressable>
             </View>
         </View>
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#A6886D',
         paddingHorizontal: 10,
         paddingTop: 30,
-        marginBottom: 15,
+        boxShadow: '0 15px 10px #ddd',
     },
     start: {
         flexDirection: 'row',
@@ -50,20 +52,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 10,
     },
-    input: {
+    input: {    
         backgroundColor: '#D9B79A',
         height: 40,
         borderRadius: 5,
         paddingHorizontal: 15,
-        flex: 3,
+        flex: 5,
+        
     },
     filter: {
         backgroundColor: '#F2D5BB',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 30,
         borderRadius: 5,
-        flex: 2,
+        padding: 5,
+    },
+    imageFilter: {
+        width: 30,
+        height: 30,
     },
 })
 
