@@ -3,13 +3,13 @@ const { query } = require('../config/db')
 // Retorna todos os personagens
 const getAllCharacters = async () => {
     const results = await query('SELECT * FROM character')
-    return results.rows
+    return results.rows || []
 }
 
 // Retorna um personagem pelo id dele
 const getByCharacterId = async (characterId) => {
     const result = await query('SELECT * FROM character WHERE id = $1', [characterId])
-    return result.rows[0]
+    return result.rows[0] || {}
 }
 
 // Retorna as habilidades associadas a um personagem

@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const model = require('../model/character.model')
 
-router.get('/characters', async (_, res) => {
+router.get('/character', async (_, res) => {
     const characters = await model.getAllCharacters()
     res.json(characters)
 })
 
-router.get('/characters/:id', async (req, res) => {
+router.get('/character/:id', async (req, res) => {
     const characterId = req.params.id
     const character = await model.getAllCharacterInfo(characterId)
 
