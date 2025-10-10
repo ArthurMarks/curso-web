@@ -1,13 +1,16 @@
 const router = require('express').Router()
+const model = require('../model/character.model')
 
-router.get('/characters', (req, res) => {
-    // Função de consulta para todos os personagens
-    res.json([])
+router.get('/characters', async (_, res) => {
+    const characters = await model.getAllCharacters()
+    res.json(characters)
 })
 
-router.get('/characters/:character', (req, res) => {
-    // Função de consulta para personagem específico
-    res.json({})
+router.get('/characters/:id', async (req, res) => {
+    const characterId = req.params.id
+    const character = await model.getAllCharacterInfo(characterId)
+
+    res.json(character)
 })
 
 module.exports = router

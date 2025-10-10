@@ -33,6 +33,7 @@ const Home = () => {
         </ScrollView>
     )
 }
+/** Página inicial do site */
 
 const styles = StyleSheet.create({
     container: {

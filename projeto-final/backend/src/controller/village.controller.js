@@ -1,13 +1,16 @@
 const router = require('express').Router()
+const model = require('../model/village.model')
 
-router.get('/villages', (req, res) => {
-    // Função de consulta para todos as vilas
-    res.json([])
+router.get('/villages', async (_, res) => {
+    const villages = await model.getAllVillages()
+    res.json(villages)
 })
 
-router.get('/villages/:village', (req, res) => {
-    // Função de consulta para vila específica
-    res.json({})
+router.get('/villages/:id', async (req, res) => {
+    const villageId = req.params.id
+    const village = await model.getByVillageId(villageId)
+
+    res.json(village)
 })
 
 module.exports = router
