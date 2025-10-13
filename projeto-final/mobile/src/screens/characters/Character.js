@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import useServer from "../../hooks/useServer"
 
 const Character = ({ route }) => {
-    const { data } = route.params
+    const data = route.params
     const server = useServer()
     const path = server.getImagePath('character', data.name)
     const [dimensions, setDimensions] = useState({ width: 300, height: 300 })
@@ -30,7 +30,9 @@ const Character = ({ route }) => {
             <View style={loading ? styles.hidden : styles.ok}>
                 <Text>{data.name}</Text>
                 <Text>Teste criado em {new Date(data.date_creation).toLocaleDateString()}</Text>
+                <Text>Habilidades:</Text>
                 <Text>Caminho da imagem: {path}</Text>
+                
                 <Image
                     source={{ uri: path }}
                     style={{ width: dimensions.width, height: dimensions.height, resizeMode: 'contain', backgroundColor: '#eee' }}

@@ -9,12 +9,8 @@ const Wrapper = ({ children, screen }) => {
     const server = useServer()
 
     const fetchData = async () => {
-        try {
-            const data = await server.getAllData(screen)
-            setDatas(data || [])
-        } catch (error) {
-            console.log(`Erro ao buscar os dados: ${error}`)
-        }
+        const data = await server.getAllData(screen)
+        setDatas(data)
     }
 
     useEffect(() => {
@@ -29,11 +25,17 @@ const Wrapper = ({ children, screen }) => {
             <FlatList
                 data={datas}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Pressable onPress={() => navigation.navigate('details', { data: item })}>
-                        <Text>{item.name}</Text>
-                    </Pressable>
-                )}
+                scrollEnabled={false}
+                renderItem={({ item }) => {
+                    const data = server.getByDataId(screen, item.id)
+                    console.log(data)
+
+                    return (
+                        <Pressable onPress={() => navigation.navigate('details', data)}>
+                            <Text>{item.name}</Text>
+                        </Pressable>
+                    )
+                }}
             />
         </ScrollView>
     )
