@@ -3,13 +3,13 @@ const { query } = require('../config/db')
 // Retorna todas os clãs
 const getAllClans = async () => {
     const results = await query('SELECT * FROM clan')
-    return results.rows || []
+    return results.rows
 }
 
 // Retorna um clã pelo id dele
 const getByClanId = async (clanId) => {
     const result = await query('SELECT * FROM clan WHERE id = $1', [clanId])
-    return result.rows[0] || {}
+    return result.rows[0]
 }
 
 // Retorna os personagens associados a um clã
@@ -43,10 +43,12 @@ const getClanSkills = async (clanId) => {
 // Une todas as informações associadas a um clã
 const getAllClanInfo = async (clanId) => {
     const clan = await getByClanId(clanId)
-    const character = await getClanCharacters(clanId)
-    const skill = await getClanSkills(clanId)
+    if (!clan) return null
 
-    return { ...clan, character, skill }
+    const characters = await getClanCharacters(clanId)
+    const skills = await getClanSkills(clanId)
+
+    return { ...clan, characters, skills }
 }
 
-module.exports = { getAllClans, getAllClanInfo }
+module.exports = { getAll: getAllClans, getOne: getAllClanInfo }

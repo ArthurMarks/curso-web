@@ -13,7 +13,7 @@ const Navigator = ({ screenConfig }) => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="tab">
                 {props => (
-                    <Wrapper>
+                    <Wrapper screen={screenConfig.name}>
                         <MainComponent {...props} />
                     </Wrapper>
                 )}

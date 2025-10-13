@@ -3,13 +3,13 @@ const { query } = require('../config/db')
 // Retorna todos os personagens
 const getAllCharacters = async () => {
     const results = await query('SELECT * FROM character')
-    return results.rows || []
+    return results.rows
 }
 
 // Retorna um personagem pelo id dele
 const getByCharacterId = async (characterId) => {
     const result = await query('SELECT * FROM character WHERE id = $1', [characterId])
-    return result.rows[0] || {}
+    return result.rows[0]
 }
 
 // Retorna as habilidades associadas a um personagem
@@ -29,9 +29,11 @@ const getCharacterSkills = async (characterId) => {
 // Une todas as informações associadas a um personagem
 const getAllCharacterInfo = async (characterId) => {
     const character = await getByCharacterId(characterId)
-    const skill = await getCharacterSkills(characterId)
+    if (!character) return null
 
-    return { ...character, skill }
+    const skills = await getCharacterSkills(characterId)
+
+    return { ...character, skills }
 }
 
-module.exports = { getAllCharacters, getAllCharacterInfo }
+module.exports = { getAll: getAllCharacters, getOne: getAllCharacterInfo }
