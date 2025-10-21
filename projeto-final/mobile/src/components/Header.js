@@ -1,16 +1,16 @@
-import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet, Pressable } from "react-native"
 import { useState, useRef } from "react"
+import { useQuery } from "../hooks/useQuery"
+import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet, Pressable } from "react-native"
 
 import Filter from "./Filter"
 
-const Header = ({ query, onQueryChange }) => {
+const Header = () => {
     const [filterActived, setFilterActived] = useState(false)
+    const { query, setQuery } = useQuery()
     const inputRef = useRef(null)
 
-    const handleActiveFilter = () => setFilterActived(true)
-
     const handleQuery = (text) => {
-        onQueryChange(text)
+        setQuery(text)
     }
     /** Função que relaciona o texto digitado a setQuery(), em App.js */
 
@@ -38,7 +38,7 @@ const Header = ({ query, onQueryChange }) => {
                         value={query}
                         onChangeText={handleQuery}
                     />
-                    <TouchableOpacity onPress={handleActiveFilter} style={styles.filter}>
+                    <TouchableOpacity onPress={() => setFilterActived(true)} style={styles.filter}>
                         <Image
                             source={require('../../assets/filter.png')}
                             style={styles.imageFilter}
@@ -54,7 +54,7 @@ const Header = ({ query, onQueryChange }) => {
                     ) /** Renderização que ativa o ícone de exclusão (ativado somente quando há texto) */}
                 </View>
             </View>
-            <Filter visible={filterActived} apply={setFilterActived} />
+            <Filter visible={filterActived} close={() => setFilterActived(false)} />
         </>
     )
 }

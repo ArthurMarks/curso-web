@@ -12,9 +12,9 @@ const Navigator = ({ screenConfig }) => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="tab">
-                {props => (
+                {() => (
                     <Wrapper screen={screenConfig.name}>
-                        <MainComponent {...props} />
+                        <MainComponent />
                     </Wrapper>
                 )}
             </Stack.Screen>

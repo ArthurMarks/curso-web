@@ -1,37 +1,46 @@
-import { View, Text, Pressable, FlatList, StyleSheet } from "react-native"
-import { navigate } from "../navigation/RootNavigator"
+import { ScrollView, StyleSheet } from "react-native"
+import { useState, useEffect } from "react"
 
-import personagens from "../data"
+import useServer from "../hooks/useServer"
+import RenderDatas from "../components/RenderDatas"
+import { externNavigation } from "../hooks/useExternNavigator"
+import { useQuery } from "../hooks/useQuery"
 
-const Search = ({ query, onClearQuery }) => {
-    const results = personagens.filter(p =>
-        p.nome.toLowerCase().includes(query.toLowerCase())
-    )
-    /** Exemplo de pesquisa automática (com dados de personagens em data.js) */
+const Search = () => {
+    const { query, setQuery, filters, clearFilter, hasActiveFilter } = useQuery()
+    const [datas, setDatas] = useState([])
+    const server = useServer()
+
+    const fetchData = async () => {
+        const datas = { query, filters }
+
+        const results = await server.advancedSearch(datas)
+        setDatas(results)
+    }
 
     const handleQuery = (data) => {
-        onClearQuery()
-        navigate(data)
+        setQuery('')
+        clearFilter()
+        externNavigation(data)
     }
-    /** Função de limpeza do input, navegação e passagem de parâmetros para a sub aba */
+
+    useEffect(() => {
+        fetchData()
+    }, [query, filters])
+
+    const dataExists = query.length > 0 || hasActiveFilter
 
     return (
-        <View style={[styles.container, query.length > 0 ? styles.visible : styles.hidden]}>
-            {query && (
-                <FlatList 
-                    data={results}
-                    keyExtractor={r => r.id}
-                    renderItem={({ item }) => (
-                        <Pressable onPress={() => handleQuery(item)}>
-                            <Text>{item.nome}</Text>
-                        </Pressable>
-                    )}
+        <ScrollView style={[styles.container, dataExists ? styles.visible : styles.hidden]}>
+            {dataExists && (
+                <RenderDatas
+                    datas={datas}
+                    onNavigate={item => handleQuery(item)}
                 />
             )}
-        </View>
+        </ScrollView>
     )
 }
-/** Componente que mostra as pesquisas de acordo com o digitado no <TextInput> em Header.js */
 
 const styles = StyleSheet.create({
     container: {

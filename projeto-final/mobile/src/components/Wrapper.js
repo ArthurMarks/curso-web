@@ -2,6 +2,7 @@ import { ScrollView, FlatList, Pressable, Text } from "react-native"
 import { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import useServer from "../hooks/useServer"
+import RenderDatas from "./RenderDatas"
 
 const Wrapper = ({ children, screen }) => {
     const navigation = useNavigation()
@@ -9,33 +10,23 @@ const Wrapper = ({ children, screen }) => {
     const server = useServer()
 
     const fetchData = async () => {
-        const data = await server.getAllData(screen)
-        setDatas(data)
+        const results = await server.getAllData(screen)
+        setDatas(results)
     }
 
     useEffect(() => {
         fetchData()
-    }, [screen, server])
+    }, [screen])
 
     return (
         <ScrollView style={{
             // Aplique aqui os estilos
         }}>
             {children}
-            <FlatList
-                data={datas}
-                keyExtractor={item => item.id}
-                scrollEnabled={false}
-                renderItem={({ item }) => {
-                    const data = server.getByDataId(screen, item.id)
-                    console.log(data)
-
-                    return (
-                        <Pressable onPress={() => navigation.navigate('details', data)}>
-                            <Text>{item.name}</Text>
-                        </Pressable>
-                    )
-                }}
+            <RenderDatas
+                route={screen}
+                datas={datas}
+                onNavigate={item => navigation.navigate('details', item)}
             />
         </ScrollView>
     )

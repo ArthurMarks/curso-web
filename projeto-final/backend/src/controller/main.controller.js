@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const createRouter = require('./createRouter')
+const createRouter = require('../config/createRouter')
 
 // Importação dos modelos
 const characterModel = require('../model/character.model')

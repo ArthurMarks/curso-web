@@ -1,39 +1,54 @@
 const { query } = require('../config/db')
 
-// Retorna todos os personagens
-const getAllCharacters = async () => {
-    const results = await query('SELECT * FROM character')
-    return results.rows
-}
-
-// Retorna um personagem pelo id dele
-const getByCharacterId = async (characterId) => {
-    const result = await query('SELECT * FROM character WHERE id = $1', [characterId])
-    return result.rows[0]
-}
-
-// Retorna as habilidades associadas a um personagem
-const getCharacterSkills = async (characterId) => {
+// Une todos os personagens e as informações associadas a eles
+const getAllCharactersInfo = async () => {
     const results = await query(
         `
-        SELECT s.*
-        FROM skill AS s
-        INNER JOIN character_skill AS cs ON cs.skill_id = s.id
-        WHERE cs.character_id = $1
-        `,
-        [characterId]
+        SELECT c.*,
+        COALESCE(
+            json_agg(
+                DISTINCT jsonb_build_object(
+                    'id', s.id,
+                    'name', s.name,
+                    'type_skill', s.type_skill,
+                    'date_creation', s.date_creation
+                )
+            ) FILTER (WHERE s.id IS NOT NULL), '[]'
+        ) AS skills
+        FROM character AS c
+        LEFT JOIN character_skill AS cs ON cs.character_id = c.id
+        LEFT JOIN skill AS s ON s.id = cs.skill_id
+        GROUP BY c.id
+        ORDER BY c.id
+        `
     )
     return results.rows
 }
 
 // Une todas as informações associadas a um personagem
 const getAllCharacterInfo = async (characterId) => {
-    const character = await getByCharacterId(characterId)
-    if (!character) return null
-
-    const skills = await getCharacterSkills(characterId)
-
-    return { ...character, skills }
+    const results = await query(
+        `
+        SELECT c.*,
+        COALESCE(
+            json_agg(
+                DISTINCT jsonb_build_object(
+                    'id', s.id,
+                    'name', s.name,
+                    'type_skill', s.type_skill,
+                    'date_creation', s.date_creation
+                )
+            ) FILTER (WHERE s.id IS NOT NULL), '[]'
+        ) AS skills
+        FROM character AS c
+        LEFT JOIN character_skill AS cs ON cs.character_id = c.id
+        LEFT JOIN skill AS s ON s.id = cs.skill_id
+        WHERE c.id = $1
+        GROUP BY c.id
+        `, 
+        [characterId]
+    )
+    return results.rows[0]
 }
 
-module.exports = { getAll: getAllCharacters, getOne: getAllCharacterInfo }
+module.exports = { getAll: getAllCharactersInfo, getOne: getAllCharacterInfo }

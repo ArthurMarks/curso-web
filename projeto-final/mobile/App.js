@@ -1,28 +1,22 @@
-/*import { LogBox } from 'react-native';
-LogBox.ignoreAllLogs(true);*/
-// Ignora os avisos
-
 import { NavigationContainer } from '@react-navigation/native'
 import { View } from 'react-native'
-import { useState } from 'react'
 
+import { navigationRef } from './src/hooks/useExternNavigator'
+import { QueryProvider } from './src/hooks/useQuery'
 import Tabs from './src/navigation/Tabs'
 import Header from './src/components/Header'
 import Search from './src/screens/Search'
-import { navigationRef } from './src/navigation/RootNavigator'
 
 export default function App() {
-  const [query, setQuery] = useState('')
-
   return (
     <View style={{ flex: 1 }}>
-      <Header query={query} onQueryChange={setQuery} />
-
       <NavigationContainer ref={navigationRef}>
-        <Tabs />
+        <QueryProvider>
+          <Header />
+          <Tabs />
+          <Search />
+        </QueryProvider>
       </NavigationContainer>
-
-      <Search query={query} onClearQuery={() => setQuery('')} />
     </View>
   )
 }
