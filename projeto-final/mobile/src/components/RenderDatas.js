@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { View, FlatList, TouchableOpacity, Text, Image, StyleSheet } from "react-native"
 import useServer from "../hooks/useServer"
 
@@ -6,6 +6,10 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
     const [page, setPage] = useState(1)
     const server = useServer()
     const datasPerPage = 10
+
+    useEffect(() => {
+        setPage(1)
+    }, [datas])
 
     const startIndex = (page - 1) * datasPerPage
     const endIndex = startIndex + datasPerPage

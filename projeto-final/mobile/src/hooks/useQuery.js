@@ -1,15 +1,12 @@
-import { createContext, useContext, useMemo, useState, useEffect } from "react"
+import { createContext, useContext, useMemo, useState } from "react"
 
 const QueryContext = createContext()
 
 export const QueryProvider = ({ children }) => {
-    // Área de manipulação de pesquisas
-
+    const [searchActive, setSearchActive] = useState(false)
     const [query, setQuery] = useState('')
 
-    // Área de manipulação de filtros
-
-    const [filters, setFilters] = useState({
+    const filtersInitialState = {
         character: false,
         village: false,
         clan: false,
@@ -19,63 +16,53 @@ export const QueryProvider = ({ children }) => {
             senjutsu: false,
             doujutsu: false,
             kekkei_genkai: false,
-            kekkei_moura: false
-        }
-    })
+            kekkei_moura: false,
+        },
+    }
+
+    const [filters, setFilters] = useState(filtersInitialState)
+    const [tempFilters, setTempFilters] = useState(filters)
 
     const toggleFilter = (key) => {
-        setFilters(prev => {
+        setTempFilters((prev) => {
             const filter = { ...prev }
-
-            if (key != 'skill') {
+            if (key !== "skill") {
                 filter[key] = !prev[key]
             } else {
                 filter.skill = filter.skill.enabled
-                    ? Object.fromEntries(Object.keys(filter.skill).map(key => [key, false]))
+                    ? Object.fromEntries(Object.keys(filter.skill).map((k) => [k, false]))
                     : { ...filter.skill, enabled: true }
             }
-
             return filter
         })
     }
 
     const toggleSubFilter = (subKey) => {
-        setFilters(prev => ({
+        setTempFilters((prev) => ({
             ...prev,
-            skill: {
-                ...prev.skill,
-                [subKey]: !prev.skill[subKey]
-            }
+            skill: { ...prev.skill, [subKey]: !prev.skill[subKey] },
         }))
     }
 
-    const clearFilter = () => {
-        setFilters(prev => {
-            const filter = { ...prev }
-
-            return Object.fromEntries(Object.keys(filter).map(key =>
-                key != 'skill'
-                    ? [key, false]
-                    : [key, Object.fromEntries(Object.keys(filter.skill).map(sub => [sub, false]))]
-            ))
-        })
+    const clearTempFilters = () => {
+        setTempFilters(filtersInitialState)
     }
 
-    const hasActiveFilter = useMemo(() => (
-        Object.keys(filters).some(key => filters[key].enabled ?? filters[key])
-    ), [filters])
+    const hasActiveFilter = (filterObj) =>
+        Object.keys(filterObj).some((key) => filterObj[key].enabled ?? filterObj[key])
 
-    // Valor que será guardado na memória para futuros acessos
+    
+
+    const applyTempFilters = () => {
+        setFilters(tempFilters)
+    }
 
     const contextValue = useMemo(() => ({
-        query, setQuery, filters, toggleFilter, toggleSubFilter, clearFilter, hasActiveFilter
-    }), [query, filters])
+        searchActive, setSearchActive, query, setQuery, filters, tempFilters, setTempFilters, 
+        toggleFilter, toggleSubFilter, clearTempFilters, hasActiveFilter, applyTempFilters,
+    }), [searchActive, query, filters, tempFilters])
 
-    return (
-        <QueryContext.Provider value={contextValue}>
-            {children}
-        </QueryContext.Provider>
-    )
+    return <QueryContext.Provider value={contextValue}>{children}</QueryContext.Provider>
 }
 
 export const useQuery = () => useContext(QueryContext)
