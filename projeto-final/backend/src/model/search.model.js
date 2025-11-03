@@ -26,13 +26,13 @@ const advancedSearch = async (term, filters) => {
     const activedKeys = Object.keys(filters).filter(key => filters[key].enabled ?? filters[key])
     if (activedKeys.length == 0) return searchAll(queryTerm)
 
-    const activeSkillKeys = Object.keys(filters.skill).filter(sub => filters.skill[sub])
+    const activeSkillKeys = Object.keys(filters.skill).filter(sub => sub != 'enabled' && filters.skill[sub])
     const skills = activeSkillKeys.length > 0 ? activeSkillKeys : null
 
     const filteredQueries = activedKeys
         .map(k => {
             const base = `${queries[k]} ${condition}`
-            return k == 'skill' ? `${base} ${skillCondition}` : base
+            return skills ? `${base} ${skillCondition}` : base
         })
         .join(' UNION ALL ')
 

@@ -1,4 +1,4 @@
-INSERT INTO character (id, name) 
+INSERT INTO character (id, name)
 VALUES
     (1, 'Ashura-Otsutsuki'),
     (2, 'Asuma-Sarutobi'),
@@ -10,7 +10,38 @@ VALUES
     (8, 'Hashirama-Senju'),
     (9, 'Hinata-Hyuga'),
     (10, 'Hiruzen-Sarutobi'),
-    (11, 'Indra-Otsutsuki');
+    (11, 'Indra-Otsutsuki'),
+    (12, 'Ino-Yamanaka'),
+    (13, 'Itachi-Uchiha'),
+    (14, 'Izuna-Uchiha'),
+    (15, 'Jiraya'),
+    (16, 'Kakashi-Hatake'),
+    (17, 'Kankuro'),
+    (18, 'Kiba-Inuzuka'),
+    (19, 'Konan'),
+    (20, 'Konohamaru-Sarutobi'),
+    (21, 'Kushina-Uzumaki'),
+    (22, 'Madara-Uchiha'),
+    (23, 'MightGuy'),
+    (24, 'Minato'),
+    (25, 'Nagato-Uzumaki'),
+    (26, 'Naruto-Uzumaki'),
+    (27, 'Neji-Hyuga'),
+    (28, 'Obito-Uchiha'),
+    (29, 'Onoki'),
+    (30, 'Orochimaru'),
+    (31, 'Pain'),
+    (32, 'Rin'),
+    (33, 'Rock-Lee'),
+    (34, 'Sai'),
+    (35, 'Sakumo-Hatake'),
+    (36, 'Sakura'),
+    (37, 'Sasuke-Uchiha'),
+    (38, 'Shikamaru-Nara'),
+    (39, 'Shisui-Uchiha'),
+    (40, 'Temari'),
+    (41, 'Tobirama-Senju'),
+    (42, 'Tsunade-Senju');
 
 INSERT INTO clan (id, name)
 VALUES
@@ -24,6 +55,65 @@ VALUES
     (8, 'clan_uchiha'),
     (9, 'clan_uzumaki'),
     (10, 'clan_yamanaka');
+
+INSERT INTO village (id, name)
+VALUES
+    (1, 'Amegakure(Vila da Chuva)'),
+    (2, 'Iwagakure(Vila da Pedra)'),
+    (3, 'Kirigakure(Vila da Névoa)'),
+    (4, 'Konohagakure(Vila da Folha)'),
+    (5, 'Kumogakure(Vila da Nuvem)'),
+    (6, 'Sunagakure(Vila da Areia)'),
+    (7, 'Uzushigakure(Vila do Redemoinho)');
+
+INSERT INTO skill (id, name, type_skill)
+VALUES
+    (1, 'byakugan', 'doujutsu'),
+    (2, 'devastação_planetaria_catastrofica', 'ninjutsu'),
+    (3, 'doujutsu(habilidades_oculares)', 'doujutsu'),
+    (4, 'escudo_de_Shukaku', 'ninjutsu'),
+    (5, 'esferas_da_verdade','kekkei_moura'),
+    (6, 'flecha_de_indra', 'ninjutsu'),
+    (7, 'golem_de_pedra', 'ninjutsu'),
+    (8, 'jutsu_bola_de_fogo', 'ninjutsu'),
+    (9, 'jutsu_caixao_de_areia', 'ninjutsu'),
+    (10, 'jutsu_chama_destruidora_majestosa' ,'ninjutsu'),
+    (11, 'jutsu_chidori_dos_seis_caminhos', 'ninjutsu'),
+    (12, 'jutsu_clone_das_sombras', 'ninjutsu'),
+    (13, 'jutsu_clone_de_areia', 'ninjutsu'),
+    (14, 'jutsu_clone_de_madeira', 'senjutsu'),
+    (15, 'jutsu_clone_de_raio', 'ninjutsu'),
+    (16, 'jutsu_das_chamas_negras', 'ninjutsu'),
+    (17, 'jutsu_das_multiplas_espirais_de_vento', 'senjutsu'),
+    (18, 'jutsu_das_verdadeiras_mil_maos', 'senjutsu'),
+    (19, 'jutsu_dragao_de_agua', 'ninjutsu'),
+    (20, 'jutsu_dragao_de_fogo', 'ninjutsu'),
+    (21, 'jutsu_dragao_de_madeira', 'ninjutsu'),
+    (22, 'jutsu_esfera_de_vacuo', 'ninjutsu'),
+    (23, 'jutsu_flor_de_fenix', 'ninjutsu'),
+    (24, 'jutsu_humano_de_madeira', 'ninjutsu'),
+    (25, 'jutsu_lanca_de_chidori', 'ninjutsu'),
+    (26, 'jutsu_nascimento_do_mundo_das_arvores', 'senjutsu'),
+    (27, 'jutsu_prisao_medieval', 'ninjutsu'),
+    (28, 'jutsu_prisão_cúpula_de_terra', 'ninjutsu'),
+    (29, 'jutsu_tubarao_de_agua', 'ninjutsu'),
+    (30, 'kekkei_genkai(habilidades_por_heranca_sanguinea)', 'kekkei_genkai'),
+    (31, 'kirin', 'ninjutsu'),
+    (32, 'mangekyou_sharingan', 'doujutsu'),
+    (33, 'mangekyou_sharingan_eterno', 'doujutsu'),
+    (34, 'mudanca_de_chakra(ninjutsu)', 'ninjutsu'),
+    (35, 'raikiri', 'ninjutsu'),
+    (36, 'rasengan', 'ninjutsu'),
+    (37, 'rasenshuriken', 'ninjutsu'),
+    (38, 'reencarnação_impura', 'ninjutsu'),
+    (39, 'repulsao_celestial', 'senjutsu'),
+    (40, 'rinne_sharingan', 'kekkei_moura'),
+    (41, 'rinnegan', 'doujutsu'),
+    (42, 'senjutsu', 'senjutsu'),
+    (43, 'sharingan', 'doujutsu'),
+    (44, 'shiden', 'ninjutsu'),
+    (45, 'susanoo', 'kekkei_genkai'),
+    (46, 'tenseigan', 'doujutsu');
 
 
 SELECT * FROM character;
