@@ -6,25 +6,22 @@ import InnerWrapper from "../components/InnerWrapper"
 const Stack = createStackNavigator()
 
 const Navigator = ({ screenConfig }) => {
-    const MainComponent = screenConfig.component
-    const SubComponent = screenConfig.subcomponent
+    const Component = screenConfig.component
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="tab">
-                {() => (
-                    <Wrapper screen={screenConfig.name}>
-                        <MainComponent />
-                    </Wrapper>
-                )}
-            </Stack.Screen>
-            <Stack.Screen name="details" >
-                {props => (
+            <Stack.Screen 
+                name="tab" 
+                children={() => <Wrapper screen={screenConfig.name} />} 
+            />
+            <Stack.Screen 
+                name="details" 
+                children={props => (
                     <InnerWrapper back={screenConfig.name}>
-                        <SubComponent {...props} />
+                        <Component {...props} />
                     </InnerWrapper>
                 )}
-            </Stack.Screen>
+            /> 
         </Stack.Navigator>
     )
 }

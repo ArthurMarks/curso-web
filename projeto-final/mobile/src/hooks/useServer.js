@@ -1,6 +1,6 @@
 import axios from 'axios'
 const SERVER_LOCAL_PATH = 'http://localhost:3000'
-const SERVER_REMOTE_PATH = 'https://raw.githubusercontent.com/DGSO0811/Narutopedia-images/refs/heads/main/Narutopedia'
+const SERVER_REMOTE_PATH = 'https://raw.githubusercontent.com/DGSO0811/narutopedia/refs/heads/main'
 
 const useServer = () => {
     const getAllData = async (route) => {

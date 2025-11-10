@@ -5,7 +5,7 @@ import useServer from "../hooks/useServer"
 const RenderDatas = ({ route, datas, onNavigate }) => {
     const [page, setPage] = useState(1)
     const server = useServer()
-    const datasPerPage = 10
+    const datasPerPage = 20
 
     useEffect(() => {
         setPage(1)
@@ -22,7 +22,6 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
             <FlatList
                 data={currentItems}
                 keyExtractor={item => `${item.type ?? route}-${item.id}`}
-                scrollEnabled={false}
                 contentContainerStyle={{ gap: 10 }}
                 renderItem={({ item }) => (
                     <TouchableOpacity style={styles.button} onPress={() => onNavigate(item)}>
@@ -35,7 +34,7 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
                 )}
             />
             <View style={styles.alterContainer}>
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map(num => (
+                {totalPages > 1 && Array.from({ length: totalPages }, (_, index) => index + 1).map(num => (
                     <TouchableOpacity style={[styles.alter, page == num && styles.alterActive]} key={num} onPress={() => setPage(num)}>
                         <Text>{num}</Text>
                     </TouchableOpacity>

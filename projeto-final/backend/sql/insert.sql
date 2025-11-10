@@ -2,7 +2,7 @@ INSERT INTO character (id, name)
 VALUES
     (1, 'Ashura-Otsutsuki'),
     (2, 'Asuma-Sarutobi'),
-    (3, 'Danzo'),
+    (3, 'Danzou'),
     (4, 'Fugaku-Uchiha'),
     (5, 'Gaara'),
     (6, 'Hagoromo-Otsutsuki'),

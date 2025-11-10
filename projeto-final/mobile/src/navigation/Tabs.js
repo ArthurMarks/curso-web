@@ -1,19 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { MaterialIcons } from '@expo/vector-icons'
-
 import Navigator from './Navigator'
-
 import Home from '../screens/Home'
-import { 
-    CharactersMain, CharacterDetail, VillagesMain, VillageDetail, 
-    ClansMain, ClanDetail, SkillsMain, SkillDetail 
-} from '../screens'
+import Character from '../screens/Character'
+import Village from '../screens/Village'
+import Clan from '../screens/Clan'
+import Skill from '../screens/Skill'
 
 const screens = [
-    { name: 'character', component: CharactersMain, subcomponent: CharacterDetail },
-    { name: 'village', component: VillagesMain, subcomponent: VillageDetail },
-    { name: 'clan', component: ClansMain, subcomponent: ClanDetail },
-    { name: 'skill', component: SkillsMain, subcomponent: SkillDetail }
+    { name: 'character', component: Character },
+    { name: 'village', component: Village },
+    { name: 'clan', component: Clan },
+    { name: 'skill', component: Skill }
 ]
 /** Objeto de dados para renderização das abas principais (character, village, clan e skill), através do .map() */
 

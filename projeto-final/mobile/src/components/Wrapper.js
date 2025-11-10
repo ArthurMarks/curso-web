@@ -1,10 +1,10 @@
-import { ScrollView, FlatList, Pressable, Text } from "react-native"
+import { ScrollView, Text } from "react-native"
 import { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import useServer from "../hooks/useServer"
 import RenderDatas from "./RenderDatas"
 
-const Wrapper = ({ children, screen }) => {
+const Wrapper = ({ screen }) => {
     const navigation = useNavigation()
     const [datas, setDatas] = useState([])
     const server = useServer()
@@ -22,7 +22,7 @@ const Wrapper = ({ children, screen }) => {
         <ScrollView style={{
             // Aplique aqui os estilos
         }}>
-            {children}
+            <Text>Aqui está presente as principais informações sobre {screen}</Text>
             <RenderDatas
                 route={screen}
                 datas={datas}
