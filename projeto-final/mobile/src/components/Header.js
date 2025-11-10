@@ -51,10 +51,10 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     container: { 
-        height: 150, 
+        height: 130, 
         backgroundColor: '#A6886D', 
         paddingHorizontal: 10, 
-        paddingTop: 30 
+        paddingTop: 15
     },
     start: { 
         flexDirection: 'row', 

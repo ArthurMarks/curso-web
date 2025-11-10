@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     container: { 
         backgroundColor: "#fff", 
         position: "absolute", 
-        top: 150, 
+        top: 130, // valor igual a altura do header
         right: 0, 
         left: 0, 
         bottom: 0, 

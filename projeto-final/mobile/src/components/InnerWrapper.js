@@ -22,7 +22,7 @@ const InnerWrapper = ({ children, back }) => {
                     <Text>Carregando...</Text>
                 </View>
             )}
-            <ScrollView style={[styles.container, loading ? styles.hidden : styles.show]}>
+            <ScrollView style={loading ? styles.hidden : styles.show}>
                 <TouchableOpacity onPress={() => navigation.navigate(back, { screen: 'tab' })} style={styles.back}>
                     <Image
                         source={require('../../assets/arrow.png')}
@@ -30,7 +30,7 @@ const InnerWrapper = ({ children, back }) => {
                     />
                     <Text>Voltar</Text>
                 </TouchableOpacity>
-                {children}
+                <View style={styles.container}>{children}</View>
             </ScrollView>
         </>
     )
@@ -39,7 +39,8 @@ const InnerWrapper = ({ children, back }) => {
 
 const styles = StyleSheet.create({
     container: {
-
+        paddingHorizontal: 20,
+        marginBottom: 20
     },
     loadingContainer: {
         width: '100%',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 20,
-        backgroundColor: '#f5ebe2ff'
+        backgroundColor: '#ddd'
     },
     backIcon: {
         width: 20,

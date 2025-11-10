@@ -14,7 +14,6 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
     const startIndex = (page - 1) * datasPerPage
     const endIndex = startIndex + datasPerPage
     const currentItems = useMemo(() => datas.slice(startIndex, endIndex), [datas, page])
-
     const totalPages = Math.ceil(datas.length / datasPerPage)
 
     return (
@@ -29,7 +28,13 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
                             source={{ uri: server.getPath(item.type ?? route, item.name).image }}
                             style={styles.imageButton}
                         />
-                        <Text>{item.name}</Text>
+                        <Text>
+                            {item.name
+                                .replace(/\([^)]*\)/g, '')
+                                .replace(/[_-]/g, ' ')
+                                .split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ')
+                            }
+                        </Text>
                     </TouchableOpacity>
                 )}
             />
