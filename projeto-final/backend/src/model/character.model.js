@@ -19,7 +19,6 @@ const getAllCharactersInfo = async () => {
         LEFT JOIN character_skill AS cs ON cs.character_id = c.id
         LEFT JOIN skill AS s ON s.id = cs.skill_id
         GROUP BY c.id
-        ORDER BY c.id
         `
     )
     return results.rows

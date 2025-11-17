@@ -19,7 +19,7 @@ const Skill = ({ route }) => {
         }
 
         handleText()
-    }, [])
+    }, [skill])
 
     const arrayTexts = text.split('\\').map(text => text.trim())
 

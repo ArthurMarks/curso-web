@@ -20,7 +20,7 @@ const Character = ({ route }) => {
         }
 
         handleText()
-    }, [])
+    }, [character])
 
     const arrayTexts = text.split('\\').map(text => text.trim())
 

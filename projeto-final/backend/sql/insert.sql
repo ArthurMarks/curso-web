@@ -30,18 +30,17 @@ VALUES
     (28, 'Obito-Uchiha'),
     (29, 'Onoki'),
     (30, 'Orochimaru'),
-    (31, 'Pain'),
-    (32, 'Rin'),
-    (33, 'Rock-Lee'),
-    (34, 'Sai'),
-    (35, 'Sakumo-Hatake'),
-    (36, 'Sakura'),
-    (37, 'Sasuke-Uchiha'),
-    (38, 'Shikamaru-Nara'),
-    (39, 'Shisui-Uchiha'),
-    (40, 'Temari'),
-    (41, 'Tobirama-Senju'),
-    (42, 'Tsunade-Senju');
+    (31, 'Rin'),
+    (32, 'Rock-Lee'),
+    (33, 'Sai'),
+    (34, 'Sakumo-Hatake'),
+    (35, 'Sakura'),
+    (36, 'Sasuke-Uchiha'),
+    (37, 'Shikamaru-Nara'),
+    (38, 'Shisui-Uchiha'),
+    (39, 'Temari'),
+    (40, 'Tobirama-Senju'),
+    (41, 'Tsunade-Senju');
 
 INSERT INTO clan (id, name)
 VALUES

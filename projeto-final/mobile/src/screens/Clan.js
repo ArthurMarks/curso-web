@@ -10,6 +10,8 @@ const Clan = ({ route }) => {
     const [text, setText] = useState('')
 
     const clan = route.params
+    const characters = clan.characters
+    const skills = clan.skills
     const path = server.getPath('clan', clan.name)
 
     useEffect(() => {
@@ -19,7 +21,7 @@ const Clan = ({ route }) => {
         }
 
         handleText()
-    }, [])
+    }, [clan])
 
     const arrayTexts = text.split('\\').map(text => text.trim())
 

@@ -19,7 +19,7 @@ const Village = ({ route }) => {
         }
 
         handleText()
-    }, [])
+    }, [village])
 
     const arrayTexts = text.split('\\').map(text => text.trim())
 
