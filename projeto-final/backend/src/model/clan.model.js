@@ -69,7 +69,7 @@ const getAllClanInfo = async (clanId) => {
         `,
         [clanId]
     )
-    return results.rows
+    return results.rows[0]
 }
 
 module.exports = { getAll: getAllClansInfo, getOne: getAllClanInfo }
