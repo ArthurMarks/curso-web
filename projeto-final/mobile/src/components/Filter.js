@@ -26,7 +26,7 @@ const Filter = ({ visible, close }) => {
             <Pressable onPress={close} style={styles.overlay}>
                 <Pressable style={styles.container} onPress={() => { }}>
                     <View style={styles.header}>
-                        <Text style={styles.title}>Opções de Filtro (Ninjutsu)</Text>
+                        <Text style={styles.title}>Opções de Filtro</Text>
                         <Pressable
                             style={[styles.clearButton, condition ? styles.clearActive : styles.clearInactive]}
                             onPress={clearTempFilters}

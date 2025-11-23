@@ -8,24 +8,29 @@ const Clan = ({ route, navigation }) => {
     const server = useServer()
     const styles = useStyle()
     const [text, setText] = useState('')
+    const [chacs, setChacs] = useState([])
 
     const clan = route.params
     const characters = clan.characters
     const skills = clan.skills
     const path = server.getPath('clan', clan.name)
 
-    useEffect(() => {
-        const handleText = async () => {
-            const response = await axios.get(path.text)
-            setText(response.data)
-        }
+    const handleText = async () => {
+        const response = await axios.get(path.text)
+        setText(response.data)
+    }
 
+    const handleCharacters = async () => {
+        const results = await Promise.all(
+            characters.map(c => server.getByDataId('character', c.id))
+        )
+        setChacs(results)
+    }
+
+    useEffect(() => {
         handleText()
+        handleCharacters()
     }, [clan])
-
-    useEffect(() => {
-        
-    })
 
     const arrayTexts = text.split('\\').map(text => text.trim())
 
@@ -51,7 +56,22 @@ const Clan = ({ route, navigation }) => {
                                 key={index}
                                 onPress={() => navigation.navigate('skill', { screen: 'details', params: skill })}
                             >
-                                <Text style={styles.about.item}>•  {skill.name}</Text>
+                                <Text style={styles.about.item}>⚡︎  {skill.name}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
+            )}
+            {chacs.length > 0 && (
+                <View style={styles.about.container}>
+                    <Text style={styles.about.title}>Membro{chacs.length > 1 ? 's' : ''} do clã</Text>
+                    <View style={styles.about.itemContainer}>
+                        {chacs.map((character, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                onPress={() => navigation.navigate('character', { screen: 'details', params: character })}
+                            >
+                                <Text style={styles.about.item}>🗡  {character.name}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>

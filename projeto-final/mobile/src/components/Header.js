@@ -34,7 +34,7 @@ const Header = () => {
                         value={query}
                         onChangeText={handleQuery}
                     />
-                    <TouchableOpacity onPress={() => setFilterActived(true)} style={styles.filter}>
+                    <TouchableOpacity style={styles.filter} onPress={() => setFilterActived(true)}>
                         <Image source={require('../../assets/filter.png')} style={styles.imageFilter} />
                     </TouchableOpacity>
                     {query.length > 0 && (

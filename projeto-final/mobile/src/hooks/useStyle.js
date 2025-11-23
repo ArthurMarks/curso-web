@@ -40,7 +40,7 @@ const useStyle = () => {
         },
         item: {
             fontSize: 15,
-            color: '#00f'
+            color: '#4AA5F0'
         }
     })
 

@@ -47,7 +47,7 @@ const Character = ({ route, navigation }) => {
                                 key={index}
                                 onPress={() => navigation.navigate('skill', { screen: 'details', params: skill })}
                             >
-                                <Text style={styles.about.item}>•  {skill.name}</Text>
+                                <Text style={styles.about.item}>⚡︎  {skill.name}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
