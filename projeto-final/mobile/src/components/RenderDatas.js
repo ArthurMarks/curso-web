@@ -16,65 +16,122 @@ const RenderDatas = ({ route, datas, onNavigate }) => {
     const currentItems = useMemo(() => datas.slice(startIndex, endIndex), [datas, page])
     const totalPages = Math.ceil(datas.length / datasPerPage)
 
+    const renderItem = ({ item }) => (
+        <TouchableOpacity style={styles.button} onPress={() => onNavigate(item)}>
+            <View style={styles.imageContainer}>
+                <Image 
+                    source={{ uri: server.getPath(item.type ?? route, item.name).image }}
+                    style={styles.imageButton}
+                />
+            </View>
+            <Text style={styles.buttonText}>
+                {item.name
+                    .replace(/\([^)]*\)/g, '')
+                    .replace(/[_-]/g, ' ')
+                    .split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ')
+                }
+            </Text>
+        </TouchableOpacity>
+    )
+
     return (
-        <View>
+        <View style={styles.listContainer}>
             <FlatList
                 data={currentItems}
                 keyExtractor={item => `${item.type ?? route}-${item.id}`}
-                contentContainerStyle={{ gap: 10 }}
-                renderItem={({ item }) => (
-                    <TouchableOpacity style={styles.button} onPress={() => onNavigate(item)}>
-                        <Image 
-                            source={{ uri: server.getPath(item.type ?? route, item.name).image }}
-                            style={styles.imageButton}
-                        />
-                        <Text>
-                            {item.name
-                                .replace(/\([^)]*\)/g, '')
-                                .replace(/[_-]/g, ' ')
-                                .split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ')
-                            }
-                        </Text>
-                    </TouchableOpacity>
-                )}
+                contentContainerStyle={{ gap: 10, paddingVertical: 10 }}
+                renderItem={renderItem}
             />
-            <View style={styles.alterContainer}>
-                {totalPages > 1 && Array.from({ length: totalPages }, (_, index) => index + 1).map(num => (
-                    <TouchableOpacity style={[styles.alter, page == num && styles.alterActive]} key={num} onPress={() => setPage(num)}>
-                        <Text>{num}</Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
+            {totalPages > 1 && (
+                <View style={styles.alterContainer}>
+                    {Array.from({ length: totalPages }, (_, index) => index + 1).map(num => (
+                        <TouchableOpacity 
+                            style={[styles.alter, page == num && styles.alterActive]} 
+                            key={num} 
+                            onPress={() => setPage(num)}
+                        >
+                            <Text style={page == num ? styles.alterTextActive : styles.alterText}>
+                                {num}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            )}
         </View>
     )
 }
+// Componente que gera uma lista e quando necessário também a divide em abas
 
 const styles = StyleSheet.create({
+    listContainer: {
+        flex: 1
+    },
     button: {
-        backgroundColor: '#ddd',
+        backgroundColor: '#FFFBEB',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 20
+        padding: 10,
+        borderRadius: 10,
+        gap: 20,
+        shadowColor: '#1A1A1A',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+        borderLeftWidth: 5,
+        backgroundColor: '#e9e3cbff'
+    },
+    imageContainer: {
+        borderRadius: 8,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: '#D9D9D9',
+        width: 60,
+        height: 60
     },
     imageButton: {
-        width: 100,
-        height: 100
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover'
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#1A1A1A',
+        flex: 1
     },
     alterContainer: {
         marginVertical: 20,
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 20
+        flexWrap: 'wrap',
+        gap: 10
     },
     alter: {
-        width: 30,
-        height: 30,
-        backgroundColor: '#ccc',
+        width: 35,
+        height: 35,
+        backgroundColor: '#D9D9D9',
+        borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
     },
     alterActive: {
-        backgroundColor: '#A6886D'
+        backgroundColor: '#4AA5F0', 
+        borderWidth: 1,
+        borderColor: '#1A1A1A',
+        shadowColor: '#4AA5F0',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5
+    },
+    alterText: {
+        color: '#1A1A1A',
+        fontWeight: '500'
+    },
+    alterTextActive: {
+        color: '#FFFBEB',
+        fontWeight: 'bold'
     }
 })
 

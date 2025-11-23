@@ -3,6 +3,7 @@ import { createContext, useContext, useMemo, useState } from "react"
 const QueryContext = createContext()
 
 export const QueryProvider = ({ children }) => {
+    // Estados e variáveis referentes à consultas de texto e filtros
     const [searchActive, setSearchActive] = useState(false)
     const [query, setQuery] = useState('')
 
@@ -17,16 +18,17 @@ export const QueryProvider = ({ children }) => {
             doujutsu: false,
             kekkei_genkai: false,
             kekkei_moura: false,
-        },
+        }
     }
 
     const [filters, setFilters] = useState(filtersInitialState)
     const [tempFilters, setTempFilters] = useState(filters)
 
+    // Função que interage com a alteração de estado dos botões em Filter.js
     const toggleFilter = (key) => {
         setTempFilters((prev) => {
             const filter = { ...prev }
-            if (key !== "skill") {
+            if (key != 'skill') {
                 filter[key] = !prev[key]
             } else {
                 filter.skill = filter.skill.enabled
@@ -37,6 +39,7 @@ export const QueryProvider = ({ children }) => {
         })
     }
 
+    // Função que faz a mesma coisa que a anterior, mas específica para os filtros de 'skill'
     const toggleSubFilter = (subKey) => {
         setTempFilters((prev) => ({
             ...prev,
@@ -44,15 +47,17 @@ export const QueryProvider = ({ children }) => {
         }))
     }
 
+    // Função que limpa todos os filtros aplicados, retornando ao estado inicial
     const clearTempFilters = () => {
         setTempFilters(filtersInitialState)
     }
 
-    const hasActiveFilter = (filterObj) =>
+    // Função que verifica se possui algum filtro ativo, sendo passado o próprio filtro como parâmetro para verificação
+    const hasActiveFilter = (filterObj) => (
         Object.keys(filterObj).some((key) => filterObj[key].enabled ?? filterObj[key])
+    )
 
-    
-
+    // Função que altera o estado em nuvem dos filtros
     const applyTempFilters = () => {
         setFilters(tempFilters)
     }

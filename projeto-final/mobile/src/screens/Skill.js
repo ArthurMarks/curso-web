@@ -39,5 +39,6 @@ const Skill = ({ route }) => {
         </>
     )
 }
+// Tela que mostra detalhes sobre uma habilidade selecionada pelo usuário
 
 export default Skill

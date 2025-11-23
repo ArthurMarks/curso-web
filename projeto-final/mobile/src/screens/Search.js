@@ -10,18 +10,21 @@ const Search = () => {
     const [datas, setDatas] = useState([])
     const server = useServer()
 
+    // Função que altera 'datas' de acordo com o texto digitado e filtros selecionados
     const fetchData = async () => {
         const datas = { query, filters }
         const results = await server.advancedSearch(datas)
         setDatas(results)
     }
 
+    // Função que oculta a tela de consulta e navega até o item selecionado
     const handleNavigate = (item) => {
         setQuery('')
         setSearchActive(false)
         externNavigation(item)
     }
 
+    // Efeito executado quando há pesquisas ou consultas
     useEffect(() => {
         if (query.length > 0 || hasActiveFilter(filters)) {
             fetchData()
@@ -49,6 +52,7 @@ const Search = () => {
         </ScrollView>
     )
 }
+// Função que lida com as pesquisas feitas por filtro ou texto
 
 const styles = StyleSheet.create({
     container: { 

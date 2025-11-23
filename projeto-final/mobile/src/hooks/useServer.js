@@ -2,6 +2,7 @@ import axios from 'axios'
 const SERVER_LOCAL_PATH = 'http://localhost:3000'
 const SERVER_REMOTE_PATH = 'https://raw.githubusercontent.com/DGSO0811/narutopedia/refs/heads/main'
 
+// Função que realiza conexões entre servidores para
 const useServer = () => {
     const getAllData = async (route) => {
         const response = await axios.get(`${SERVER_LOCAL_PATH}/${route}`)

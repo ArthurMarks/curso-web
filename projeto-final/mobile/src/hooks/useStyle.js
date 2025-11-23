@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 
+// Função que define estilos genéricos para as abas específicas
 const useStyle = () => {
     const image = StyleSheet.create({
         container: {
@@ -24,7 +25,26 @@ const useStyle = () => {
         }
     })
 
-    return { image, text }
+    const about = StyleSheet.create({
+        container: {
+            borderTopWidth: 1,
+            marginTop: 20,
+            paddingTop: 20,
+            gap: 20
+        },
+        title: {
+            fontSize: 20
+        },
+        itemContainer: {
+            gap: 10
+        },
+        item: {
+            fontSize: 15,
+            color: '#00f'
+        }
+    })
+
+    return { image, text, about }
 }
 
 export default useStyle

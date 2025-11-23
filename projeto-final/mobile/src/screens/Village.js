@@ -39,5 +39,6 @@ const Village = ({ route }) => {
         </>
     )
 }
+// Tela que mostra detalhes sobre uma vila selecionada pelo usuário
 
 export default Village

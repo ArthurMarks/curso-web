@@ -25,7 +25,6 @@ const Navigator = ({ screenConfig }) => {
         </Stack.Navigator>
     )
 }
-/** Componente intermediário da navegação aba principal <-> conteúdo específico, envolvendo estilos padrão nas abas (Wrapper e InnerWrapper) */
-/** Tem como aba principal o 'tab' e secundária 'details' (com conteúdo renderizado condicionalmente) */
+// Função que define a aba principal (exibe a lista referente à aba) e abas de detalhes (conteúdo que depende do item selecionado pelo usuário)
 
 export default Navigator

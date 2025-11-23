@@ -7,35 +7,38 @@ const InnerWrapper = ({ children, back }) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 500)
+        const timer = setTimeout(() => setLoading(false), 300) 
         return () => clearTimeout(timer)
     }, [])
 
     return (
         <>
+            <ScrollView style={[loading ? styles.hidden : styles.show, { flex: 1, backgroundColor: '#FFFBEB' }]}> 
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate(back, { screen: 'tab' })} 
+                    style={styles.back}
+                >
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.backIcon}
+                    />
+                    <Text style={styles.backText}>Voltar</Text>
+                </TouchableOpacity>
+                <View style={styles.container}>{children}</View>
+            </ScrollView>
             {loading && (
                 <View style={styles.loadingContainer}>
                     <Image 
                         source={require('../../assets/loading.gif')}
                         style={styles.loadingImage}
                     />
-                    <Text>Carregando...</Text>
+                    <Text style={styles.loadingText}>Carregando o Ninjutsu...</Text>
                 </View>
             )}
-            <ScrollView style={loading ? styles.hidden : styles.show}>
-                <TouchableOpacity onPress={() => navigation.navigate(back, { screen: 'tab' })} style={styles.back}>
-                    <Image
-                        source={require('../../assets/arrow.png')}
-                        style={styles.backIcon}
-                    />
-                    <Text>Voltar</Text>
-                </TouchableOpacity>
-                <View style={styles.container}>{children}</View>
-            </ScrollView>
         </>
     )
 }
-/** Componente para aplicar estilos padrão para abas específicas (renderização dependendo do conteúdo) */
+// Componente para aplicar estilos padrão para abas específicas (renderização dependendo do conteúdo)
 
 const styles = StyleSheet.create({
     container: {
@@ -50,29 +53,45 @@ const styles = StyleSheet.create({
         gap: 10,
         position: 'absolute',
         top: 0,
-        left: 0
+        left: 0,
+        backgroundColor: '#FFFBEB',
+        zIndex: 10
     },
     loadingImage: {
         width: 100,
         height: 100
     },
+    loadingText: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#1A1A1A'
+    },
     back: {
-        padding: 10,
+        padding: 12,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 20,
-        backgroundColor: '#ddd'
+        gap: 10,
+        backgroundColor: '#4C7F4A' + '40',
+        borderBottomWidth: 1,
+        borderBottomColor: '#4C7F4A' + '60'
     },
     backIcon: {
         width: 20,
-        height: 20
+        height: 20,
+        tintColor: '#4C7F4A'
+    },
+    backText: {
+        fontSize: 16,
+        color: '#4C7F4A',
+        fontWeight: 'bold'
     },
     hidden: {
-        display: 'none'
+        height: 0,
+        opacity: 0
     },
     show: {
-        display: 'flex'
-    },
+        opacity: 1
+    }
 })
 
 export default InnerWrapper

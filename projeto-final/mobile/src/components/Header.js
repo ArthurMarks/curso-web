@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import { useQuery } from '../hooks/useQuery'
 import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
-
 import Filter from './Filter'
 
 const Header = () => {
@@ -30,6 +29,7 @@ const Header = () => {
                     <TextInput
                         ref={inputRef}
                         placeholder='Personagens, habilidades...'
+                        placeholderTextColor={'#1A1A1A' + 'aa'}
                         style={styles.input}
                         value={query}
                         onChangeText={handleQuery}
@@ -48,13 +48,19 @@ const Header = () => {
         </>
     )
 }
+// Componente que define o cabeçalho, bem como título e funcionalidades de pesquisa (consulta via texto e filtros)
 
 const styles = StyleSheet.create({
-    container: { 
+    container: {
         height: 130, 
-        backgroundColor: '#A6886D', 
-        paddingHorizontal: 10, 
-        paddingTop: 15
+        backgroundColor: '#9B2226', 
+        paddingHorizontal: 15, 
+        paddingTop: 15,
+        shadowColor: '#1A1A1A',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 8
     },
     start: { 
         flexDirection: 'row', 
@@ -62,7 +68,10 @@ const styles = StyleSheet.create({
         gap: 10 
     },
     textStart: { 
-        fontSize: 30 
+        fontSize: 30,
+        fontWeight: '900',
+        color: '#FFFBEB',
+        letterSpacing: 1
     },
     imageStart: { 
         width: 40, 
@@ -76,31 +85,39 @@ const styles = StyleSheet.create({
         position: 'relative' 
     },
     input: { 
-        backgroundColor: '#D9B79A', 
-        height: 40, 
-        borderRadius: 5, 
+        backgroundColor: '#FFFBEB', 
+        height: 45,
+        borderRadius: 8, 
         paddingLeft: 15, 
         paddingRight: 40, 
-        flex: 5 
+        flex: 5,
+        fontSize: 16
     },
     filter: { 
-        backgroundColor: '#F2D5BB', 
+        backgroundColor: '#E97D21', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        borderRadius: 5, 
-        padding: 5 
+        borderRadius: 8, 
+        padding: 7,
+        shadowColor: '#1A1A1A',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 4
     },
     imageFilter: { 
-        width: 30, 
-        height: 30 
+        width: 25, 
+        height: 25,
+        tintColor: '#FFFBEB'
     },
     delete: { 
         position: 'absolute', 
-        right: 60 
+        right: 65
     },
     imageDelete: { 
         width: 20, 
-        height: 20 
+        height: 20,
+        tintColor: '#1A1A1A' + 'aa'
     }
 })
 

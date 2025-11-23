@@ -47,6 +47,6 @@ const Tabs = () => {
         </Tab.Navigator>
     )
 }
-/** Componente que lida com o esquema de navegação entre abas principais e estilos de ícones delas */
+// Componente que lida com o esquema de navegação entre abas principais (cada aba principal é definida por um ícone na parte inferior do aplicativo)
 
 export default Tabs
